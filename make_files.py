@@ -16,5 +16,6 @@ def write_object(data_object):
     with open('ga4gh/dos/v1/dataobjects/' + data_object['id'], 'w') as outfile:
         json.dump(data_object.marshal(), outfile)
 
-list_response = ListDataObjectsRequest(page_token=response.next_page_token).result()
+list_request = ListDataObjectsRequest(page_token=response.next_page_token)
+list_response = lc.ListDataObjects(body=list_request).result()
 map(write_object, list_response.data_objects)
